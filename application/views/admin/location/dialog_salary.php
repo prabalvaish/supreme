@@ -316,7 +316,8 @@ header('Access-Control-Allow-Headers: *');
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <div class="form-actions box-footer"> <?php echo form_button(array('name' => 'update', 'id' => 'update', 'type' => 'submit', 'class' => $this->Xin_model->form_button_class(), 'content' => '<i class="fas fa-check-square"></i> ' . $this->lang->line('xin_save'))); ?> </div>
+          <button type="button" class="btn btn-secondary" id="update" name="update"><i class="fas fa-check-square"></i>Close</button>
+
         </div>
       </div>
     </div>
@@ -421,14 +422,19 @@ header('Access-Control-Allow-Headers: *');
           }
         });
       });
-
-      // Load Table Content
-      $('#designation_id').change(function() {
+     // Load Table Content
+      $('#designation_id').change(function () {
+   
+       tableLoad();
+  
+      });
+      function tableLoad() {
         var company_id = $('#company_id').val();
         var customer_id = $('#location_id').val();
         var location_id = $('#department_id').val();
         var department_id = $('#subdepartment_id').val();
         var designation_id = $('#designation_id').val();
+       
         $.ajax({
           url: "<?php echo base_url(); ?>admin/Company_Salary/getAllowancesData",
           method: "POST",
@@ -441,12 +447,10 @@ header('Access-Control-Allow-Headers: *');
           },
           dataType: 'json',
           success: function(data) {
-            console.log('Hello' + data[2][0].basic_salary);
             var html = '';
             var html1 = '';
             var html2 = '';
             var html3 = '';
-            //var i;
             var temp = data[1];
             temp = temp.slice(0, data[0]);
             var temp1 = data[1];
@@ -491,7 +495,7 @@ header('Access-Control-Allow-Headers: *');
               }
             }
             allow_total += (Number(data[2][0].basic_salary));
-standard_salary = (Number(allow_total))+(Number(other_allow_total));
+            standard_salary = (Number(allow_total))+(Number(other_allow_total));
 
             for (i = 0; i < data[2].length; i++) {
               if (i == 0) {
@@ -556,7 +560,7 @@ standard_salary = (Number(allow_total))+(Number(other_allow_total));
 
           }
         });
-      });
+      }
 
 
       // edit Allowance Modal
@@ -626,7 +630,8 @@ standard_salary = (Number(allow_total))+(Number(other_allow_total));
             pf_option: pf_option
           },
           success: function(data) {
-            alert("Your bookmark has been added.");
+            $('#editEmpModal').modal('hide');
+            tableLoad();
           }
         });
         e.preventDefault();

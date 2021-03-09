@@ -1983,10 +1983,10 @@ public function update_arrear_amount($id,$arrear_amount){
 	$sql = 'UPDATE xin_employees SET arrear_amount =? WHERE user_id = ?';
 	$binds = array($arrear_amount,$id);
 	if( $this->db->query($sql,$binds)){
-		return true;
+		return TRUE;
 	}
 	else{
-		return false;
+		return FALSE;
 	}
 }
 }

@@ -7374,7 +7374,7 @@ class Employees extends MY_Controller
 		}		
 		$arrear_amount = $net_pay-$previous_month_salary;
 		$result_arrear  = $this->Employees_model->update_arrear_amount($id,$arrear_amount);
-		if ($result == TRUE) {
+		if ($result_arrear == TRUE) {
 			$Return['result'] = $this->lang->line('xin_employee_updated_allowance_success');
 		} else {
 			$Return['error'] = $this->lang->line('xin_error_msg');
